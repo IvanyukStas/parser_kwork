@@ -1,7 +1,6 @@
 import csv
 import requests
 from bs4 import BeautifulSoup
-import locale
 import config
 
 
@@ -39,8 +38,6 @@ def find_song_text(soup)->str:
 
 
 def record_to_csv(data):
-    locale.setlocale(locale.LC_ALL, '')
-    DELIMITER = ';' if locale.localeconv()['decimal_point'] == ',' else ','
     with open('output.csv', 'a', encoding='utf-8', newline='') as file_w:
         writer = csv.writer(file_w, delimiter=';', quoting=csv.QUOTE_MINIMAL)
         writer.writerows([data])
