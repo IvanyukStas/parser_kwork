@@ -1,4 +1,7 @@
 import csv
+import sys
+import time
+
 import requests
 from bs4 import BeautifulSoup
 import config
@@ -46,8 +49,16 @@ def stop_list(title):
     if config.break_word == []:
         return None
     for stop_word in config.break_word:
-        if stop_word in title.text.lower():
+        if stop_word.lower() in title.text.lower():
             print('Титле в стоп листе!!!!')
             print(stop_word, "============= Стоп ворд")
             print(title.text, '============= Запрещенный титле')
-            break
+            return True
+
+def time_intrvals(n):
+    write, flush = sys.stdout.write, sys.stdout.flush
+    for i in reversed(range(n)):
+        write(str(i))
+        flush()
+        write('\x08' * 10)
+        time.sleep(0.5)
