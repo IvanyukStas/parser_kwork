@@ -41,3 +41,13 @@ def send_telegram(text: str):
 
     if r.status_code != 200:
         raise Exception("post_text error")
+
+def stop_list(title):
+    if config.break_word == []:
+        return None
+    for stop_word in config.break_word:
+        if stop_word in title.text.lower():
+            print('Титле в стоп листе!!!!')
+            print(stop_word, "============= Стоп ворд")
+            print(title.text, '============= Запрещенный титле')
+            break

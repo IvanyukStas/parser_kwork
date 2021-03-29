@@ -1,21 +1,24 @@
+from datetime import datetime
 import time
 import config
-from parser_vse_pesni import open_input_file, get_soup, record_to_csv, send_telegram
+from parser_vse_pesni import open_input_file, get_soup, record_to_csv, send_telegram, stop_list
 
 '''
  Парсер заданий на kwork.ru
 '''
 
 if __name__ == '__main__':
-
+    print('Стартуем!!!')
     while True:
-        time.sleep(300)
+        print(datetime.now())
+        time.sleep(config.time_interval)
         url = 'https://kwork.ru/projects?c=11'
         soup = get_soup(url)
         title = soup.find_all('div', config.title_teg)
         for i in title:
             title = i.find_next('div')
             projects_from_csv = open_input_file('output.csv')
+            stop_list(title)
             if title.text in projects_from_csv:
                 print(title.text, 'УЖЕ ЕСТЬ!!!!')
                 break
