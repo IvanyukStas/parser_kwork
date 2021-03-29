@@ -1,35 +1,30 @@
-from parser_vse_pesni import open_input_file, get_soup, find_artist, find_song_text,find_song_name, record_to_csv
+import time
+import config
+from parser_vse_pesni import open_input_file, get_soup, record_to_csv, send_telegram
 
 '''
- Парсер исполнителю названия песни и текста песни
- с сайта https://vse-pesni.com/
+ Парсер заданий на kwork.ru
 '''
 
 if __name__ == '__main__':
-    urls = open_input_file()
-    k = 0
-    for url in urls:
+
+    while True:
+        time.sleep(300)
+        url = 'https://kwork.ru/projects?c=11'
         soup = get_soup(url)
-        data = []
-        category = find_artist(soup)
-        data.append(category)
-        title = find_song_name(soup)
-        data.append(title)
-        text_song = find_song_text(soup)
-        data.append(text_song)
-        record_to_csv(data)
-        k+= 1
-    print(f'Всего обработано {k} ссылок')
-
-
-
-
-
-
-
-
-'''myData = [["first_name", "second_name", "Grade"],
-          ['Alex', 'Brian', 'A'],
-          ['Tom', 'Smith', 'B']]
-
-'''
+        title = soup.find_all('div', config.title_teg)
+        for i in title:
+            title = i.find_next('div')
+            projects_from_csv = open_input_file('output.csv')
+            if title.text in projects_from_csv:
+                print(title.text, 'УЖЕ ЕСТЬ!!!!')
+                break
+            description = i.find_next('div', class_='breakwords first-letter js-want-block-toggle js-want-block-toggle-full hidden')
+            text = []
+            text.append(title.text)
+            text.append(description.text)
+            text.append(title.a["href"])
+            tg_text = title.text+'\n'+description.text+'\n'+title.a["href"]
+            send_telegram(tg_text)
+            record_to_csv(text)
+            time.sleep(2)
