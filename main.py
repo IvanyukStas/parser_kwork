@@ -18,11 +18,11 @@ if __name__ == '__main__':
         for i in title:
             title = i.find_next('div')
             if stop_list(title):
-                break
+                continue
             projects_from_csv = open_input_file('output.csv')
             if title.text in projects_from_csv:
                 print(title.text, 'УЖЕ ЕСТЬ!!!!')
-                break
+                continue
             description = i.find_next('div', class_='breakwords first-letter js-want-block-toggle js-want-block-toggle-full hidden')
             text = []
             text.append(title.text)
