@@ -1,4 +1,5 @@
 import csv
+import os
 import sys
 import time
 
@@ -9,6 +10,9 @@ import config
 
 def open_input_file(input_file) -> list:
     url = []
+    if not os.path.exists('output.csv'):
+       f = open('output.csv', 'w')
+       f.close()
     with open(input_file) as file:
         reader = csv.reader(file, delimiter=';',
                             quoting=csv.QUOTE_MINIMAL)
