@@ -2,3 +2,4 @@ venv
 .env
 test.py
 output.csv
+.idea
