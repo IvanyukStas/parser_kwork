@@ -32,4 +32,9 @@ if __name__ == '__main__':
             send_telegram(tg_text)
             record_to_csv(text)
             time.sleep(2)
+
         time_intrvals(config.time_interval)
+        print('='*77)
+        print(datetime.now())
+        print('Проверяю...')
+        print('=' * 77)

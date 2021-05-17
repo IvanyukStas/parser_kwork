@@ -13,7 +13,7 @@ def open_input_file(input_file) -> list:
     if not os.path.exists('output.csv'):
        f = open('output.csv', 'w')
        f.close()
-    with open(input_file, 'r', encoding="utf-8", errors='ignore') as file:
+    with open(input_file, 'r', encoding="cp1251", errors='ignore') as file:
         reader = csv.reader(file, delimiter=';',
                             quoting=csv.QUOTE_MINIMAL)
         for row in reader:
@@ -28,7 +28,7 @@ def get_soup(url):
 
 
 def record_to_csv(data):
-    with open('output.csv', 'a', encoding='utf-8', newline='') as file_w:
+    with open('output.csv', 'a', encoding='cp1251', newline='') as file_w:
         writer = csv.writer(file_w, delimiter=';', quoting=csv.QUOTE_MINIMAL)
         writer.writerows([data])
     print('RECORD COMLETE!')
