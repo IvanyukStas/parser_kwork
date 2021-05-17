@@ -13,7 +13,7 @@ def open_input_file(input_file) -> list:
     if not os.path.exists('output.csv'):
        f = open('output.csv', 'w')
        f.close()
-    with open(input_file) as file:
+    with open(input_file, 'r', encoding="utf-8", errors='ignore') as file:
         reader = csv.reader(file, delimiter=';',
                             quoting=csv.QUOTE_MINIMAL)
         for row in reader:
