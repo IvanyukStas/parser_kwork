@@ -3,3 +3,7 @@ venv
 test.py
 output.csv
 .idea
+test*.py
+misc.xml
+parser_vse_pesni.iml
+__pycache__
